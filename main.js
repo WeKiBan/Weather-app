@@ -159,10 +159,10 @@ function renderWeatherDisplay(location) {
       data.current.dt < data.current.sunset
     ) {
       mainSection.style.backgroundImage = "url('images/day-background.png')";
-      currentWeatherContainer.style.color = 'rgb(63, 63, 63)';
+      mainSection.style.color = 'rgb(63, 63, 63)';
     } else {
       mainSection.style.backgroundImage = "url('images/night-background.png')";
-      currentWeatherContainer.style.color = '#fff';
+      mainSection.style.color = '#fff';
     }
 
     let days = orderDays(date.split(',')[0]);
@@ -185,7 +185,6 @@ function renderWeatherDisplay(location) {
 function orderDays(day){
     let array = daysArray;
     let index = array.findIndex(item => item === day);
-    console.log(array.slice(index + 1).concat(array.slice(0, index)))
     return array.slice(index + 1).concat(array.slice(0, index));
 }
 
