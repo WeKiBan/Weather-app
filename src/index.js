@@ -124,29 +124,32 @@ function render() {
   currentLocationElement.dataset.locationId = 'current';
   currentLocationElement.id = 'current';
   sideMenu.appendChild(currentLocationElement);
-  locations.forEach((location) => {
-    const listElement = document.createElement('li');
-    const deleteBtn = document.createElement('i');
-    deleteBtn.classList.add('fas');
-    deleteBtn.classList.add('fa-trash-alt');
-    listElement.appendChild(deleteBtn);
-    deleteBtn.addEventListener('click', (e) => {
-      locations = locations.filter(
-        (location) => location.id !== e.target.parentElement.dataset.locationId
-      );
-      selectedLocationId = 'current';
-
-      saveAndRender();
+  if(locations.length > 0){
+    locations.forEach((location) => {
+      const listElement = document.createElement('li');
+      const deleteBtn = document.createElement('i');
+      deleteBtn.classList.add('fas');
+      deleteBtn.classList.add('fa-trash-alt');
+      listElement.appendChild(deleteBtn);
+      deleteBtn.addEventListener('click', (e) => {
+        locations = locations.filter(
+          (location) => location.id !== e.target.parentElement.dataset.locationId
+        );
+        selectedLocationId = 'current';
+  
+        saveAndRender();
+      });
+      listElement.classList.add('location-item');
+      listElement.innerText = location.location;
+      listElement.dataset.locationId = location.id;
+      if (location.id === selectedLocationId) {
+        listElement.classList.add('active-location');
+      }
+      listElement.appendChild(deleteBtn);
+      sideMenu.appendChild(listElement);
     });
-    listElement.classList.add('location-item');
-    listElement.innerText = location.location;
-    listElement.dataset.locationId = location.id;
-    if (location.id === selectedLocationId) {
-      listElement.classList.add('active-location');
-    }
-    listElement.appendChild(deleteBtn);
-    sideMenu.appendChild(listElement);
-  });
+  }
+  
 }
 
 // render weather display
@@ -256,7 +259,7 @@ function fetchWeather(lat, lon) {
     .catch((error) => console.log(error));
 }
 
-mainSection.style.height = window.innerHeight +'px';
+mainSection.style.height = window.innerHeight + 'px';
 getCurrentLocation();
-render();
+renderWeatherDisplay(currentLocation);
 selectElement('#current').classList.add('active-location');
