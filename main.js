@@ -102,9 +102,13 @@ function fetchCoordinates() {
 function saveAndRender() {
   save();
   render();
-  renderWeatherDisplay(
-    locations.find((location) => location.id === selectedLocationId)
-  );
+  if (selectedLocationId === 'current') {
+    renderWeatherDisplay(currentLocation);
+  } else {
+    renderWeatherDisplay(
+      locations.find((location) => location.id === selectedLocationId)
+    );
+  }
 }
 
 function save() {
@@ -122,12 +126,25 @@ function render() {
   sideMenu.appendChild(currentLocationElement);
   locations.forEach((location) => {
     const listElement = document.createElement('li');
+    const deleteBtn = document.createElement('i');
+    deleteBtn.classList.add('fas');
+    deleteBtn.classList.add('fa-trash-alt');
+    listElement.appendChild(deleteBtn);
+    deleteBtn.addEventListener('click', (e) => {
+      locations = locations.filter(
+        (location) => location.id !== e.target.parentElement.dataset.locationId
+      );
+      selectedLocationId = 'current';
+
+      saveAndRender();
+    });
     listElement.classList.add('location-item');
     listElement.innerText = location.location;
     listElement.dataset.locationId = location.id;
     if (location.id === selectedLocationId) {
       listElement.classList.add('active-location');
     }
+    listElement.appendChild(deleteBtn);
     sideMenu.appendChild(listElement);
   });
 }
@@ -144,13 +161,13 @@ function renderWeatherDisplay(location) {
   let weatherData = fetchWeather(location.lat, location.lon);
   weatherData.then((data) => {
     let date = new Date().toLocaleDateString('en-US', {
-        timeZone: `${data.timezone}`,
-        weekday: 'long',
-        month: 'short',
-        day: 'numeric',
-      });
+      timeZone: `${data.timezone}`,
+      weekday: 'long',
+      month: 'short',
+      day: 'numeric',
+    });
     currentTemp.innerText = Math.round(data.current.temp - 273.15);
-    currentWeatherIcon.src = `${weatherIconAddress}${data.current.weather[0].icon}@2x.png`;
+    currentWeatherIcon.src = `./images/icons/${data.current.weather[0].icon}.png`;
     currentWeatherDescription.innerText = data.current.weather[0].description;
     currentDate.innerText = date;
     // set background image if night or day
@@ -166,7 +183,7 @@ function renderWeatherDisplay(location) {
     }
 
     let days = orderDays(date.split(',')[0]);
-    
+
     // set daily info
     for (var i = 0; i < dailyWeatherContainers.length; i++) {
       let day = dailyWeatherContainers[i];
@@ -175,17 +192,17 @@ function renderWeatherDisplay(location) {
       const temp = day.querySelector('.day-temp');
       const dayTitle = day.querySelector('.day-title');
       temp.innerText = Math.round(dailyData.temp.day - 273.15);
-      icon.src = `${weatherIconAddress}${dailyData.weather[0].icon}.png`;
+      icon.src = `./images/icons/${dailyData.weather[0].icon}.png`;
       dayTitle.innerText = days[i];
     }
   });
 }
 
 // find day of the week
-function orderDays(day){
-    let array = daysArray;
-    let index = array.findIndex(item => item === day);
-    return array.slice(index + 1).concat(array.slice(0, index));
+function orderDays(day) {
+  let array = daysArray;
+  let index = array.findIndex((item) => item === day);
+  return array.slice(index + 1).concat(array.slice(0, index));
 }
 
 //add new location
@@ -242,4 +259,3 @@ function fetchWeather(lat, lon) {
 getCurrentLocation();
 render();
 selectElement('#current').classList.add('active-location');
-
