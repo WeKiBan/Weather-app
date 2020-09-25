@@ -256,6 +256,7 @@ function fetchWeather(lat, lon) {
     .catch((error) => console.log(error));
 }
 
+mainSection.style.height = window.innerHeight +'px';
 getCurrentLocation();
 render();
 selectElement('#current').classList.add('active-location');
