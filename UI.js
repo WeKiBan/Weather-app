@@ -1,7 +1,7 @@
 class UI {
   constructor() {
     // API KEYS AND ADDRESSES
-    this.weatherIconAddress = 'http://openweathermap.org/img/wn/';
+    this.weatherIconAddress = './images/icons/';
     //VARIABLES FOR SIDE MENU
     this.sideMenu = document.querySelector('.locations');
     this.newLocationForm = document.querySelector('.new-location-form');
@@ -38,7 +38,7 @@ class UI {
       weatherObject.current.dt
     );
     //SET CURRENT WEATHER ICON.
-    this.currentIcon.src = `${this.weatherIconAddress}${weatherObject.current.weather[0].icon}@2x.png`;
+    this.currentIcon.src = `${this.weatherIconAddress}${weatherObject.current.weather[0].icon}.png`;
     //SET CURRENT  WEATHER DESCRIPTION
     this.currentDescription.textContent =
       weatherObject.current.weather[0].description;
