@@ -3,9 +3,9 @@ const ui = new UI();
 const storage = new Storage();
 const loc = new Location();
 const weather = new Weather();
-
 // LOCATIONS VARIABLE
 let locations = storage.getFromLocalStorage();
+console.log(window.innerHeight)
 
 // INITIATE APP WHEN LOCATION LOADS
 navigator.geolocation.getCurrentPosition(
@@ -19,7 +19,7 @@ navigator.geolocation.getCurrentPosition(
 // ON PAGE LOAD RENDER LOCATIONS IN SIDE MENU AND SET HEIGHT
 document.addEventListener('DOMContentLoaded', function (e) {
   ui.renderSideMenu(locations, 'current');
-  ui.body.style.height = window.innerHeight;
+  ui.mainSection.style.height = window.innerHeight;
 });
 
 // OPEN AND CLOSE SIDE MENU

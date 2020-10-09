@@ -16,19 +16,19 @@
   padding: 0;
   box-sizing: border-box;
 }
-html,
-body {
-  height: 100vh;
-  background: url('images/day-background.png') no-repeat center;
-  background-size: cover;
-}
 
 html {
   font-family: var(--body-font);
   font-size: 10px;
   font-weight: 200;
   color: var(--main-font-color-dark);
-  scroll-behavior: smooth;
+  overflow: hidden;
+}
+
+body {
+  background: url('images/day-background.png') no-repeat center;
+  background-size: cover;
+  scroll-behavior: ;
 }
 
 .container {
@@ -220,7 +220,7 @@ header {
 /* Main Section */
 .main-section {
   height: 100vh;
-  background-size: cover;
+  min-height: 600px;
   display: grid;
   grid-template-rows: 4fr 1fr 1fr 1fr 1fr 1fr 1fr;
   padding: 0.5rem;
