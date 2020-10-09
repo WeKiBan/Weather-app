@@ -28,7 +28,7 @@ html {
 body {
   background: url('images/day-background.png') no-repeat center;
   background-size: cover;
-  scroll-behavior: ;
+  overflow: hidden;
 }
 
 .container {
