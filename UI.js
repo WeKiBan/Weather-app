@@ -69,12 +69,12 @@ class UI {
     if (currentTime < sunriseTime || currentTime > sunsetTime) {
       document.body.style.background =
         'url("images/night-background.png") no-repeat center';
-        document.body.style.backgroundSize = '100% 100%'
+        document.body.style.backgroundSize = 'cover'
       this.mainSection.style.color = 'var(--body-font-color)';
     } else {
       document.body.style.background =
         'url("images/day-background.png") no-repeat center';
-        document.body.style.backgroundSize = '100% 100%'
+        document.body.style.backgroundSize = 'cover'
       this.mainSection.style.color = 'var(--main-font-color-dark)';
     }
   }
