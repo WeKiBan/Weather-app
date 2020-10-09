@@ -67,12 +67,14 @@ class UI {
   setBackgroundImage(sunriseTime, sunsetTime, currentTime) {
     // CHECK TO SEE IF CURRENT TIME IS BETWEEN SUNRISE AND SUNSET, SET PICTURE ACCORDINGLY AND CHANGE FONT COLOUR
     if (currentTime < sunriseTime || currentTime > sunsetTime) {
-      this.body.style.background =
+      document.body.style.background =
         'url("images/night-background.png") no-repeat center';
+        document.body.style.backgroundSize = '100% 100%'
       this.mainSection.style.color = 'var(--body-font-color)';
     } else {
-      this.body.style.background =
+      document.body.style.background =
         'url("images/day-background.png") no-repeat center';
+        document.body.style.backgroundSize = '100% 100%'
       this.mainSection.style.color = 'var(--main-font-color-dark)';
     }
   }
