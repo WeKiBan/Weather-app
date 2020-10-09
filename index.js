@@ -16,9 +16,10 @@ navigator.geolocation.getCurrentPosition(
 );
 
 // EVENT LISTENERS
-// ON PAGE LOAD RENDER LOCATIONS IN SIDE MENU
+// ON PAGE LOAD RENDER LOCATIONS IN SIDE MENU AND SET HEIGHT
 document.addEventListener('DOMContentLoaded', function (e) {
   ui.renderSideMenu(locations, 'current');
+  ui.body.style.height = window.innerHeight;
 });
 
 // OPEN AND CLOSE SIDE MENU

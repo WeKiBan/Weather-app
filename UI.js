@@ -48,7 +48,8 @@ class UI {
     this.currentTemp.textContent = Math.round(
       weatherObject.current.temp - 273.15
     );
-
+    // GET ARRAY OF DAYS OF WEEK
+    const days = this.getDateArray(weatherObject.current.dt);
     // SET THE DAILY VALUES BY LOOPING THROUGH.
     for (let i = 0; i < this.dailyWeatherContainers.length; i++) {
       const day = this.dailyWeatherContainers[i];
@@ -57,6 +58,8 @@ class UI {
       day.querySelector('.day-temp').textContent = Math.round(
         dailyWeather.temp.day - 273.15
       );
+      //SET DAY NAME
+      day.querySelector('.day-title').innerText = days[i];
       //SET DAILY ICON
       day.querySelector(
         '.icon'
@@ -69,12 +72,12 @@ class UI {
     if (currentTime < sunriseTime || currentTime > sunsetTime) {
       document.body.style.background =
         'url("images/night-background.png") no-repeat center';
-        document.body.style.backgroundSize = 'cover'
+      document.body.style.backgroundSize = 'cover';
       this.mainSection.style.color = 'var(--body-font-color)';
     } else {
       document.body.style.background =
         'url("images/day-background.png") no-repeat center';
-        document.body.style.backgroundSize = 'cover'
+      document.body.style.backgroundSize = 'cover';
       this.mainSection.style.color = 'var(--main-font-color-dark)';
     }
   }
@@ -138,6 +141,20 @@ class UI {
         selectedLocation.location
       );
     }
+  }
+  getDateArray(date) {
+    const dayIndex = new Date(date * 1000).getDay();
+    let days = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ];
+    days = days.slice(dayIndex + 1).concat(days.slice(0, dayIndex));
+    return days;
   }
   deleteLocation(e) {
     const selectedTargetId = e.target.parentElement.id;
